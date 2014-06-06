@@ -86,6 +86,8 @@
   
 }
 
+//visible at launch选项
+//xib的window属性有一个选项，就是visible at launch，默认是勾选,窗口无法附在父窗口上；勾掉，窗口才能附在父窗口上
 -(void)beginSheetModalForWindow:(NSWindow *)window modalDelegate:delegate didEndSelector:(SEL)selector contextInfo:(void *)info {
     [_window setStyleMask:NSDocModalWindowMask];
     _sheetDelegate=delegate;
