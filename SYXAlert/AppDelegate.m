@@ -17,16 +17,16 @@
 }
 - (IBAction)ShowSYXAlertWindow:(id)sender
 {
-    SYXAlert *alert = [SYXAlert alertWithMessageText:@"SYXAlertWindow" okButton:@"Ok" cancelButton:@"cancel"]; //[[SYXAlert alloc] init];
+    SYXAlert *alert = [SYXAlert alertWithMessageText:@"SYXAlertWindow" okButton:@"Ok" cancelButton:@"Cancel"]; //[[SYXAlert alloc] init];
     
     NSInteger action = [alert runModal];
     if(action == SYXAlertOkReturn)
     {
-        NSLog(@"SYXAlertButtonOk Clicked!");
+        NSLog(@"SYXAlertOkButton clicked!");
     }
     else if(action == SYXAlertCancelReturn )
     {
-        NSLog(@"SYXAlertButtonCancel Clicked!");
+        NSLog(@"SYXAlertCancelButton clicked!");
     }
     
 }
@@ -35,7 +35,7 @@
     NSMutableDictionary * extrasDict = [[NSMutableDictionary alloc] init];
     [extrasDict setObject:@"http://www.baidu.com" forKey:@"link"];
     
-    SYXAlert *alert = [SYXAlert alertWithMessageText:@"SYXAlertSheet" okButton:@"Ok" cancelButton:@"cancel"];
+    SYXAlert *alert = [SYXAlert alertWithMessageText:@"SYXAlertSheet" okButton:@"Ok" cancelButton:@"Cancel"];
     [alert beginSheetModalForWindow:self.window
                       modalDelegate:self
                      didEndSelector:@selector(alertSheetDidEnd:returnCode:contextInfo:)
@@ -47,14 +47,14 @@
              contextInfo:(void *)contextInfo {
     if (returnCode == SYXAlertOkReturn)
     {
-        NSLog(@"SYXAlertButtonOk clicked!");
+        NSLog(@"SYXAlertOkButton clicked!");
         //__bridge_transfer for arc
         NSString *url = [(__bridge NSDictionary*)contextInfo objectForKey:@"link"];
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
     }
     else if(returnCode == SYXAlertCancelReturn )
     {
-        NSLog(@"SYXAlertButtonCancel clicked!");
+        NSLog(@"SYXAlertCancelButton clicked!");
     }
 
 }
