@@ -72,7 +72,7 @@
 
 -(NSInteger)runModal
 {
-    [_window setStyleMask:NSTitledWindowMask];
+    _isSheet = NO;
     return [NSApp runModalForWindow:self.window];
 }
 
@@ -89,16 +89,17 @@
 //visible at launch选项
 //xib的window属性有一个选项，就是visible at launch，默认是勾选,窗口无法附在父窗口上；勾掉，窗口才能附在父窗口上
 -(void)beginSheetModalForWindow:(NSWindow *)window modalDelegate:delegate didEndSelector:(SEL)selector contextInfo:(void *)info {
-    [_window setStyleMask:NSDocModalWindowMask];
+    _isSheet = YES;
     _sheetDelegate=delegate;
     _sheetDidEnd=selector;
     [self retain];
+    //设置按钮高亮
     [NSApp beginSheet:_window modalForWindow:window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:info];
 }
 
 -(void)btnAction:(id)sender
 {
-    if(_window.styleMask & NSDocModalWindowMask)
+    if(_isSheet)
         [NSApp endSheet:_window returnCode:[sender tag]];
     else
         [NSApp stopModalWithCode:[sender tag]];

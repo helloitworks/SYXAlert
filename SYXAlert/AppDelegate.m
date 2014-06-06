@@ -15,6 +15,8 @@
 {
     // Insert code here to initialize your application
 }
+
+//采用Window的方式展示
 - (IBAction)ShowSYXAlertWindow:(id)sender
 {
     SYXAlert *alert = [SYXAlert alertWithMessageText:@"SYXAlertWindow" okButton:@"Ok" cancelButton:@"Cancel"]; //[[SYXAlert alloc] init];
@@ -30,6 +32,8 @@
     }
     
 }
+
+//采用Sheet的方式展示
 - (IBAction)ShowSYXAlertSheet:(id)sender
 {
     NSMutableDictionary * extrasDict = [[NSMutableDictionary alloc] init];
@@ -42,12 +46,15 @@
                         contextInfo:(__bridge void*)extrasDict];
 }
 
+
+//响应Sheet的按钮事件
 - (void)alertSheetDidEnd:(NSAlert *)alert
               returnCode:(NSInteger)returnCode
              contextInfo:(void *)contextInfo {
     if (returnCode == SYXAlertOkReturn)
     {
         NSLog(@"SYXAlertOkButton clicked!");
+        //show you how to use contextInfo
         //__bridge_transfer for arc
         NSString *url = [(__bridge NSDictionary*)contextInfo objectForKey:@"link"];
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];

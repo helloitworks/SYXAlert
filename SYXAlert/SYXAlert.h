@@ -26,6 +26,7 @@ enum {
     NSString *_messageText;
     id  _sheetDelegate;
     SEL _sheetDidEnd;
+    BOOL _isSheet;
 
 }
 
