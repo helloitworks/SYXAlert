@@ -14,18 +14,23 @@
 @synthesize messageTextField = _messageTextField;
 @synthesize window = _window;
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
+
+- (id)initWithWindowNibName:(NSString *)windowNibName {
+	self = [super init];
+	if (self) {
         if (!_window)
         {
-            [NSBundle loadNibNamed:@"SYXAlert" owner:self];
+            [[NSBundle mainBundle] loadNibNamed:windowNibName owner:self topLevelObjects:nil];
         }
     }
     return self;
 }
+
+- (id)init
+{
+    return [self initWithWindowNibName:@"SYXAlert"];
+}
+
 
 
 +(SYXAlert *)alertWithMessageText:(NSString *)messageText okButton:(NSString *)okTitle cancelButton:(NSString *)cancelTitle
@@ -37,7 +42,7 @@
     {
         okTitle = @"OK";
     }
-    [alert.okButton setTitle:@"确定"];
+    [alert.okButton setTitle:okTitle];
     [alert.okButton setTarget:alert];
     [alert.okButton setAction:@selector(btnAction:)];
     [alert.okButton setTag:SYXAlertOkReturn];
@@ -61,7 +66,7 @@
 -(void)awakeFromNib
 {
     //设置按钮高亮
-    [self.window setDefaultButtonCell:[self.okButton cell]];
+    [_window setDefaultButtonCell:[self.okButton cell]];
 }
 
 
@@ -95,7 +100,7 @@
         [NSApp endSheet:_window returnCode:[sender tag]];
     else
         [NSApp stopModalWithCode:[sender tag]];
-    [self.window close];
+    [_window close];
 }
 
 
